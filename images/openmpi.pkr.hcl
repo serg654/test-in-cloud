@@ -13,7 +13,7 @@ source "yandex" "openmpi_centos_8" {
   token = var.token
   folder_id = var.folder_id
 
-  image_name = join("-", ["openmpi-centos-8",formatdate("YYYYMMDDhhmmss", timestamp())])
+  image_name = "openmpi-centos-8-${formatdate("YYYYMMDDhhmmss", timestamp())}"
   image_family = "openmpi"
   image_description = "OpenMPI on Centos Stream 8"
 
@@ -28,9 +28,9 @@ build {
 
   provisioner "shell" {
     inline = [
-               "sudo dnf update -y",
-               "sudo dnf install -y openmpi.x86_64",
-               "sudo dnf clean all"
-             ]
+      "sudo dnf update -y",
+      "sudo dnf install -y openmpi.x86_64",
+      "sudo dnf clean all"
+    ]
   }
 }
