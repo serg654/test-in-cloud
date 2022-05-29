@@ -26,11 +26,20 @@ source "yandex" "openmpi_centos_8" {
 build {
   sources = ["source.yandex.openmpi_centos_8"]
 
+  provisioner "file" {
+    source = "nft_config"
+    destination = "/dev/shm/main.nft"
+  }
+
   provisioner "shell" {
     inline = [
       "sudo dnf update -y",
-      "sudo dnf install -y openmpi.x86_64",
-      "sudo dnf clean all"
+      "sudo dnf install -y openmpi nftables",
+      "sudo dnf clean all",
+      "sudo sed -r -i \"s|#include|include|\" /etc/sysconfig/nftables.conf",
+      "sudo mv /dev/shm/main.nft /etc/nftables/main.nft",
+      "sudo systemctl enable nftables",
+      "sudo systemctl start nftables"
     ]
   }
 }
