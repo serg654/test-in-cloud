@@ -9,7 +9,7 @@ terraform {
 
 provider "yandex" {
   token = var.token
-  cloud_id  = var.cluster_id
+  cloud_id  = var.cloud_id
   folder_id = var.folder_id
   zone = "ru-central1-b"
 }
@@ -49,10 +49,6 @@ resource "yandex_compute_instance" "server" {
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet-1.id
     nat = count.index == 0 ? true : false
-  }
-
-  metadata = {
-    user-data = "${file("vm_meta.txt")}"
   }
 }
 

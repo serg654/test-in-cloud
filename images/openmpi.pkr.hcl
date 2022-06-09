@@ -6,7 +6,7 @@ variable "token" {
 
 variable "folder_id" {
   type = string
-  default = "b1g3vbb75q8cdocujluk"
+  default = "b1gt669hif8e053ife9j"
 }
 
 source "yandex" "openmpi_centos_8" {
@@ -31,15 +31,15 @@ build {
     destination = "/dev/shm/main.nft"
   }
 
+  provisioner "file" {
+    source = "init.sh"
+    destination = "/dev/shm/init.sh"
+  }
+
   provisioner "shell" {
     inline = [
-      "sudo dnf update -y",
-      "sudo dnf install -y openmpi nftables",
-      "sudo dnf clean all",
-      "sudo sed -r -i \"s|#include|include|\" /etc/sysconfig/nftables.conf",
-      "sudo mv /dev/shm/main.nft /etc/nftables/main.nft",
-      "sudo systemctl enable nftables",
-      "sudo systemctl start nftables"
+      "chmod +x /dev/shm/init.sh",
+      "sudo /dev/shm/init.sh"
     ]
   }
 }

@@ -4,12 +4,12 @@ variable "token" {
   sensitive = true
 }
 
-variable "cluster_id" {
+variable "cloud_id" {
   type = string
-  default = "b1ga0cs43m0gm01lstqs"
+  default = "b1gfbcfu7dfiehp74etq"
 }
 
 variable "folder_id" {
   type = string
-  default = "b1g3vbb75q8cdocujluk"
+  default = "b1gt669hif8e053ife9j"
 }
