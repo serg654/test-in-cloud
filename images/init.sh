@@ -7,7 +7,7 @@ sed -r -i \"s|#include|include|\" /etc/sysconfig/nftables.conf
 mv /dev/shm/main.nft /etc/nftables/main.nft
 systemctl enable nftables
 systemctl start nftables
-bash -c 'echo \"export PATH=/usr/lib64/openmpi/bin:$PATH\" >> /etc/profile'
+bash -c 'echo "export PATH=/usr/lib64/openmpi/bin:$PATH" >> /etc/profile'
 echo "sys_user ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/sys-user
 useradd sys_user
 sudo -u sys_user bash -c 'mkdir ~/.ssh && touch ~/.ssh/authorized_keys && \
